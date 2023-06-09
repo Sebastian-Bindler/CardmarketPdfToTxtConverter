@@ -26,8 +26,8 @@ for i in range (0 , datenIndex):
     
     with open(CsvToTxtFileName) as f:
         lis = []
-        for line in csv.DictReader(f, fieldnames=('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i')):
-            #print(line)
+        for line in csv.DictReader(f, fieldnames=('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j')):
+            print(line)
             lis.append(line)
            
         for i in lis:
@@ -42,24 +42,38 @@ for i in range (0 , datenIndex):
             l.append(i['g'])
             l.append(i['i'])
             
-            x = l[2].find("DE")
+            x = str(l[3]).find("NM")
+            if x != -1:
+                l[5] = l[4]
+                l[4] = l[3]
+                l[7] = i['h']
+                
+            x = str(l[3]).find("EX")
+            if x != -1:
+                l[5] = l[4]
+                l[4] = l[3]
+                l[7] = i['h']
+            
+            x = str(l[2]).find("DE")
             
             if x != -1:
                 l[2] = l[2].replace(" DE", "")
                 l[3] = "DE"
                 
-            x = l[2].find("EN")
+            x = str(l[2]).find("EN")
             if x != -1:
                 l[2] = l[2].replace(" EN", "")
                 l[3] = "EN"
                 
-            x = l[2].find("JP")
+            x = str(l[2]).find("JP")
             if x != -1:
                 l[2] = l[2].replace(" JP", "")
                 l[3] = "JP"
                 
             
             string = "{}	{}	{}	{}	{}	{}	{}	{}\n".format(l[0], l[1], l[2], l[3], l[4], l[5], l[6], str(l[7]).replace("EUR", ""))
+            #string = "{}	{}	{}	{}	{}	{}	{}	{}\n".format(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7])
+            print(str(l[7]).replace("EUR", ""))
             with open(OutputFileNameTxt, 'a') as fd:
                 fd.write(string)
             fd.close()
